@@ -2,11 +2,12 @@
 import re
 import os
 import sys
+
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 from pysilcam import __version__
 from sphinx.setup_command import BuildDoc
-import sphinx.apidoc
+#import sphinx
 import distutils.cmd
 
 REQUIRES = [

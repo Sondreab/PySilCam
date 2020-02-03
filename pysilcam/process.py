@@ -114,7 +114,7 @@ def filter_bad_stats(stats,settings):
     return stats
 
 
-def fancy_props(iml, imc, timestamp, settings, nnmodel, class_labels):
+def fancy_props(imbw, iml, imc, timestamp, settings, nnmodel, class_labels):
     '''Calculates fancy particle properties
 
     return pandas.DataFrame
@@ -124,7 +124,7 @@ def fancy_props(iml, imc, timestamp, settings, nnmodel, class_labels):
 
     region_properties = measure.regionprops(iml, cache=False)
     # build the stats and export to HDF5
-    stats = extract_particles(imc,timestamp,settings,nnmodel,class_labels, region_properties)
+    stats = extract_particles(imbw, imc,timestamp,settings,nnmodel,class_labels, region_properties)
 
     return stats
 
@@ -219,7 +219,7 @@ def measure_particles(imbw, imc, settings, timestamp, nnmodel, class_labels):
 
 
     # calculate particle statistics
-    stats = fancy_props(iml, imc, timestamp, settings, nnmodel, class_labels)
+    stats = fancy_props(imbw, iml, imc, timestamp, settings, nnmodel, class_labels)
 
     return stats, saturation
 
@@ -258,8 +258,28 @@ def statextract(imc, settings, timestamp, nnmodel, class_labels):
 
     return stats, imbw, saturation
 
+def extract_pixels(im, bbox):
+    ''' given a binary image (im) and bounding box (bbox), this will return all activated pixel coordinates in x and y
 
-def extract_particles(imc, timestamp, settings, nnmodel, class_labels, region_properties):
+    returns:
+      all_points_x, all_points_y
+    '''
+
+    roi = im[bbox[0]:bbox[2], bbox[1]:bbox[3]] # bbox[row, column]
+    dim_x = bbox[3] - bbox[1]
+    dim_y = bbox[2] - bbox[0]
+    all_points_x, all_points_y = []
+
+    for x in range(dim_x):
+        for y in range(dim_y):
+            if roi[y,x] == 1:
+                all_points_x = [all_points_x, bbox[1] + x]
+                all_points_y = [all_points_y, bbox[0] + y]
+
+    return all_points_x, all_points_y
+
+
+def extract_particles(imbw, imc, timestamp, settings, nnmodel, class_labels, region_properties):
     '''extracts the particles to build stats and export particle rois to HDF5
 
     @todo clean up all the unnesessary conditional statements in this
@@ -283,7 +303,7 @@ def extract_particles(imc, timestamp, settings, nnmodel, class_labels, region_pr
     # define the geometrical properties to be calculated from regionprops
     propnames = ['major_axis_length', 'minor_axis_length',
                  'equivalent_diameter', 'solidity']
-
+                 
     # pre-allocate some things
     data = np.zeros((len(region_properties), len(propnames)), dtype=np.float64)
     bboxes = np.zeros((len(region_properties), 4), dtype=np.float64)
@@ -319,7 +339,7 @@ def extract_particles(imc, timestamp, settings, nnmodel, class_labels, region_pr
         HDF5File.close()
 
     # build the column names for the outputed DataFrame
-    column_names = np.hstack(([propnames, 'minr', 'minc', 'maxr', 'maxc']))
+    column_names = np.hstack(([propnames, 'minr', 'minc', 'maxr', 'maxc', 'all_points_x', 'all_points_y']))
 
     # merge regionprops statistics with a seperate bounding box columns
     cat_data = np.hstack((data, bboxes))
