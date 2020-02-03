@@ -1,0 +1,2 @@
+INFO:pysilcam.__main__.silcam_acquire:Updating path length
+WARNING:pysilcam.__main__.silcam_acquire:Could not open port. Path length will not be adjusted.
