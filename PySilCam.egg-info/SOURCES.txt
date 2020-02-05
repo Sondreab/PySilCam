@@ -13,6 +13,7 @@ pysilcam/__init__.py
 pysilcam/__main__.py
 pysilcam/acquisition.py
 pysilcam/background.py
+pysilcam/build_dataset.py
 pysilcam/config.py
 pysilcam/datalogger.py
 pysilcam/fakepymba.py

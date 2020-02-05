@@ -9,12 +9,12 @@ import pysilcam.fakepymba as fakepymba
 import sys
 
 logger = logging.getLogger(__name__)
-
+'''
 try:
     import pymba
 except:
     logger.debug('Pymba not available. Cannot use camera')
-
+'''
 
 def _init_camera(vimba):
     '''Initialize the camera system from vimba object
@@ -65,7 +65,7 @@ def _configure_camera(camera, config_file=None):
     defaultpath = os.path.dirname(os.path.abspath(__file__))
     defaultfile = os.path.join(defaultpath,'camera_config_defaults.ini')
     config = load_camera_config(defaultfile)
-
+    
     # Read the configiration values from users config file
     # The values found in this file, overrides those fro the default file
     # The rest keep the values from the defaults file
@@ -106,15 +106,16 @@ class Acquire():
     Class used to acquire images from camera or disc
     '''
     def __init__(self, USE_PYMBA=False):
-        if USE_PYMBA:
+        '''if USE_PYMBA:
             self.pymba = pymba
             self.pymba.get_time_stamp = lambda x: pd.Timestamp.now()
             print('Pymba imported')
             self.get_generator = self.get_generator_camera
-        else:
-            self.pymba = fakepymba
-            print('using fakepymba')
-            self.get_generator = self.get_generator_disc
+            '''
+        
+        self.pymba = fakepymba
+        print('using fakepymba')
+        self.get_generator = self.get_generator_disc
 
     def get_generator_disc(self, datapath=None, writeToDisk=False, camera_config_file=None):
         '''

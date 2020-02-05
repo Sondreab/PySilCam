@@ -1,31 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="0" hostname="rvg2" name="pytest" skipped="3" tests="8" time="5.720" timestamp="2020-01-27T14:17:34.726903"><testcase classname="pysilcam.tests.test_background" file="pysilcam/tests/test_background.py" line="6" name="test_background_aquire" time="2.818"><system-out>using fakepymba
-AcquisitionFrameRateAbs = 1
-SyncOutSource = Strobe1
-AcquisitionMode = SingleFrame
-configversion = 1
-ExposureTimeAbs = 180
-StrobeDurationMode = Controlled
-SyncOutPolarity = Normal
-StrobeDuration = 800
-TriggerSource = FixedRate
-PixelFormat = RGB8Packed
-SyncOutSelector = SyncOut1
-StrobeDelay = 0
-GVSPPacketSize = 1500
-StrobeSource = FrameTriggerReady
-</system-out></testcase><testcase classname="pysilcam.tests.test_config" file="pysilcam/tests/test_config.py" line="5" name="test_config_parser" time="0.001"></testcase><testcase classname="pysilcam.tests.test_config" file="pysilcam/tests/test_config.py" line="19" name="test_settings" time="0.003"></testcase><testcase classname="pysilcam.tests.test_config" file="pysilcam/tests/test_config.py" line="32" name="test_camera_config_parser" time="0.001"></testcase><testcase classname="pysilcam.tests.test_process" file="pysilcam/tests/test_process.py" line="8" name="test_csv_file" time="0.000"><skipped message="test path not accessible" type="pytest.skip">/home/sondreab/Desktop/PySilCam/.eggs/pytest-5.3.4-py3.5.egg/_pytest/unittest.py:237: test path not accessible</skipped></testcase><testcase classname="pysilcam.tests.test_silcam-aquire" file="pysilcam/tests/test_silcam-aquire.py" line="5" name="test_acquire_five_frames" time="1.495"><system-out>using fakepymba
-AcquisitionFrameRateAbs = 1
-SyncOutSource = Strobe1
-AcquisitionMode = SingleFrame
-configversion = 1
-ExposureTimeAbs = 180
-StrobeDurationMode = Controlled
-SyncOutPolarity = Normal
-StrobeDuration = 800
-TriggerSource = FixedRate
-PixelFormat = RGB8Packed
-SyncOutSelector = SyncOut1
-StrobeDelay = 0
-GVSPPacketSize = 1500
-StrobeSource = FrameTriggerReady
-</system-out></testcase><testcase classname="pysilcam.tests.test_standards" file="pysilcam/tests/test_standards.py" line="12" name="test_big_standards" time="0.000"><skipped message="test path not accessible" type="pytest.skip">/home/sondreab/Desktop/PySilCam/.eggs/pytest-5.3.4-py3.5.egg/_pytest/unittest.py:237: test path not accessible</skipped></testcase><testcase classname="pysilcam.tests.test_standards" file="pysilcam/tests/test_standards.py" line="55" name="test_small_standards" time="0.000"><skipped message="test path not accessible" type="pytest.skip">/home/sondreab/Desktop/PySilCam/.eggs/pytest-5.3.4-py3.5.egg/_pytest/unittest.py:237: test path not accessible</skipped></testcase></testsuite></testsuites>
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="1" failures="0" hostname="rvg2" name="pytest" skipped="0" tests="1" time="1.686" timestamp="2020-02-03T15:30:05.776689"><testcase classname="" file="pysilcam/tests/test_process.py" name="pysilcam.tests.test_process" time="0.000"><error message="collection failure">ImportError while importing test module &apos;/home/sondreab/Desktop/PySilCam/pysilcam/tests/test_process.py&apos;.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+pysilcam/tests/test_process.py:7: in &lt;module&gt;
+    from pysilcam.silcreport import silcam_report
+pysilcam/silcreport.py:5: in &lt;module&gt;
+    import pysilcam.plotting as scplt
+pysilcam/plotting.py:8: in &lt;module&gt;
+    import seaborn as sns
+E   ModuleNotFoundError: No module named &apos;seaborn&apos;</error></testcase></testsuite></testsuites>

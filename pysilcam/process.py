@@ -114,7 +114,7 @@ def filter_bad_stats(stats,settings):
     return stats
 
 
-def fancy_props(imbw, iml, imc, timestamp, settings, nnmodel, class_labels):
+def fancy_props(iml, imc, timestamp, settings, nnmodel, class_labels):
     '''Calculates fancy particle properties
 
     return pandas.DataFrame
@@ -124,7 +124,7 @@ def fancy_props(imbw, iml, imc, timestamp, settings, nnmodel, class_labels):
 
     region_properties = measure.regionprops(iml, cache=False)
     # build the stats and export to HDF5
-    stats = extract_particles(imbw, imc,timestamp,settings,nnmodel,class_labels, region_properties)
+    stats = extract_particles(imc,timestamp,settings,nnmodel,class_labels, region_properties)
 
     return stats
 
@@ -219,7 +219,7 @@ def measure_particles(imbw, imc, settings, timestamp, nnmodel, class_labels):
 
 
     # calculate particle statistics
-    stats = fancy_props(imbw, iml, imc, timestamp, settings, nnmodel, class_labels)
+    stats = fancy_props(iml, imc, timestamp, settings, nnmodel, class_labels)
 
     return stats, saturation
 
@@ -258,6 +258,7 @@ def statextract(imc, settings, timestamp, nnmodel, class_labels):
 
     return stats, imbw, saturation
 
+"""
 def extract_pixels(im, bbox):
     ''' given a binary image (im) and bounding box (bbox), this will return all activated pixel coordinates in x and y
 
@@ -277,9 +278,9 @@ def extract_pixels(im, bbox):
                 all_points_y = [all_points_y, bbox[0] + y]
 
     return all_points_x, all_points_y
+"""
 
-
-def extract_particles(imbw, imc, timestamp, settings, nnmodel, class_labels, region_properties):
+def extract_particles(imc, timestamp, settings, nnmodel, class_labels, region_properties):
     '''extracts the particles to build stats and export particle rois to HDF5
 
     @todo clean up all the unnesessary conditional statements in this
